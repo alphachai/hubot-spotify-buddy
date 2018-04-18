@@ -55,6 +55,32 @@ module.exports = (robot) ->
 
                     res.send "#{cover_art.url}?.jpg #{data.name} by #{artists}"
 
+    describe_album = (res, id, token) ->
+        # https://beta.developer.spotify.com/documentation/web-api/reference/albums/get-album/
+
+        url = "https://api.spotify.com/v1/albums/" + id
+        auth = "Bearer " + token
+
+        robot.http(url)
+            .header("Authorization", auth)
+            .get() (e, r, b) ->
+                if handle_err(res, e, r, b, "GET", url) isnt true
+                    try
+                        data = JSON.parse b
+                    catch
+                        res.send "Failed to parse the JSON."
+
+                    artists = null
+                    for artist in data.artists
+                        if artists
+                            artists = artists + ", #{artist.name}"
+                        else
+                            artists = artist.name
+
+                    cover_art = data.images[..].pop()
+
+                    res.send "#{cover_art.url}?.jpg #{data.name} (album) by #{artists}"
+
 
     describe_resource = (res, type, id) ->
         # https://beta.developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
@@ -76,6 +102,8 @@ module.exports = (robot) ->
                     switch type
                         when "track"
                             describe_track(res, id, token)
+                        when "album"
+                            describe_album(res, id, token)
                         else
                             res.send "I don't know how to describe " + type
 
