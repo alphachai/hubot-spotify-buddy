@@ -3,6 +3,7 @@ When someone shares a Spotify link, automatically respond with the album art, so
 
 ## Usage
 spotify:track:id
+or
 https://open.spotify.com/track/id
 
 ## Configuration
