@@ -1,6 +1,8 @@
 # hubot-spotify-buddy
 When someone shares a Spotify link, automatically respond with the album art, song name, and artist.
 
+Supports: track, album
+
 ![demo of the script running](https://raw.githubusercontent.com/alphachai/hubot-spotify-buddy/master/flowdock_example.png)
 
 ## Usage
