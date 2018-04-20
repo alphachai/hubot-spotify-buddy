@@ -53,7 +53,7 @@ module.exports = (robot) ->
 
                     cover_art = data.album.images[..].pop()
 
-                    res.send "#{cover_art.url}?.jpg #{data.name} by #{artists}"
+                    res.send "#{cover_art.url}?.jpg [#{data.name}](spotify://#{data.uri}) by #{artists}"
 
     describe_album = (res, id, token) ->
         # https://beta.developer.spotify.com/documentation/web-api/reference/albums/get-album/
@@ -79,7 +79,7 @@ module.exports = (robot) ->
 
                     cover_art = data.images[..].pop()
 
-                    res.send "#{cover_art.url}?.jpg #{data.name} (album) by #{artists}"
+                    res.send "#{cover_art.url}?.jpg [#{data.name}](spotify://#{data.uri}) (album) by #{artists}"
 
 
     describe_resource = (res, type, id) ->
